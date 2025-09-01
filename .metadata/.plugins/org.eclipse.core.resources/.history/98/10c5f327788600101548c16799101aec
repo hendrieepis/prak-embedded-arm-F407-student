@@ -1,0 +1,225 @@
+#include "main.h"
+#include "usb_device.h"
+
+#include <stdio.h>
+#include "hardwareinit.h"
+
+I2C_HandleTypeDef hi2c1;
+
+I2S_HandleTypeDef hi2s3;
+
+SPI_HandleTypeDef hspi1;
+
+/* USER CODE BEGIN PV */
+uint16_t count=0;
+extern USBD_HandleTypeDef hUsbDeviceFS;  // deklarasi handle dari usb_device.c
+static inline uint8_t usb_is_configured(void){
+	return (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED);
+}
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+
+/* USER CODE BEGIN PFP */
+extern uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
+
+int _write(int file, char *ptr, int len) {
+	CDC_Transmit_FS((uint8_t*) ptr, len); return len;
+}
+
+void counterShow(void);
+void counterUpdate(void);
+void counterZero(void);
+
+// sensor.c dan sensor.h
+uint8_t sensorDetected(void);
+uint8_t resetDetected(void);
+
+//utility.c utility.h
+void checkBoard(void);
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+void counterShow(void){
+	HAL_GPIO_WritePin(BAR0_GPIO_Port,BAR0_Pin,count & (1<<0));
+	HAL_GPIO_WritePin(BAR1_GPIO_Port,BAR1_Pin,count & (1<<1));
+	HAL_GPIO_WritePin(BAR2_GPIO_Port,BAR2_Pin,count & (1<<2));
+	HAL_GPIO_WritePin(BAR3_GPIO_Port,BAR3_Pin,count & (1<<3));
+	HAL_GPIO_WritePin(BAR4_GPIO_Port,BAR4_Pin,count & (1<<4));
+	HAL_GPIO_WritePin(BAR5_GPIO_Port,BAR5_Pin,count & (1<<5));
+	HAL_GPIO_WritePin(BAR6_GPIO_Port,BAR6_Pin,count & (1<<6));
+	HAL_GPIO_WritePin(BAR7_GPIO_Port,BAR7_Pin,count & (1<<7));
+}
+
+void counterUpdate(void){
+	++count;
+}
+
+void counterZero(void){
+	count=0;
+}
+// sensor.c dan sensor.h
+uint8_t sensorDetected(void){
+	uint32_t db_ms=20;
+	uint8_t FlagDetect=0;
+	if(HAL_GPIO_ReadPin(BTN_LEFT_GPIO_Port,BTN_LEFT_Pin)== GPIO_PIN_RESET) {
+		HAL_Delay(db_ms);
+		if(HAL_GPIO_ReadPin(BTN_LEFT_GPIO_Port,BTN_LEFT_Pin)== GPIO_PIN_RESET) {
+			while(HAL_GPIO_ReadPin(BTN_LEFT_GPIO_Port,BTN_LEFT_Pin)== GPIO_PIN_RESET);
+			// tunggu release stabil
+			HAL_Delay(db_ms);
+			if(HAL_GPIO_ReadPin(BTN_LEFT_GPIO_Port,BTN_LEFT_Pin)== GPIO_PIN_SET) {
+				FlagDetect=1; // valid press
+			}
+		}
+	}
+	return FlagDetect;
+}
+
+uint8_t resetDetected(void){
+	uint32_t db_ms=20;
+	uint8_t FlagDetect=0;
+	if(HAL_GPIO_ReadPin(BTN_RIGHT_GPIO_Port,BTN_RIGHT_Pin)== GPIO_PIN_RESET) {
+		HAL_Delay(db_ms);
+		if(HAL_GPIO_ReadPin(BTN_RIGHT_GPIO_Port,BTN_RIGHT_Pin)== GPIO_PIN_RESET) {
+			while(HAL_GPIO_ReadPin(BTN_RIGHT_GPIO_Port,BTN_RIGHT_Pin)== GPIO_PIN_RESET);
+			// tunggu release stabil
+			HAL_Delay(db_ms);
+			if(HAL_GPIO_ReadPin(BTN_RIGHT_GPIO_Port,BTN_RIGHT_Pin)== GPIO_PIN_SET) {
+				FlagDetect=1; // valid press
+			}
+		}
+	}
+	return FlagDetect;
+}
+
+void checkBoard(void) {
+	printf("Cek BarLED, buzzer, USER LED \n\r");
+	HAL_Delay(300);
+	for (uint8_t cnt=0;cnt<8;cnt++){
+
+		HAL_GPIO_TogglePin(BAR0_GPIO_Port, BAR0_Pin);
+		HAL_GPIO_TogglePin(BAR1_GPIO_Port, BAR1_Pin);
+		HAL_GPIO_TogglePin(BAR2_GPIO_Port, BAR2_Pin);
+		HAL_GPIO_TogglePin(BAR3_GPIO_Port, BAR3_Pin);
+		HAL_GPIO_TogglePin(BAR4_GPIO_Port, BAR4_Pin);
+		HAL_GPIO_TogglePin(BAR5_GPIO_Port, BAR5_Pin);
+		HAL_GPIO_TogglePin(BAR6_GPIO_Port, BAR6_Pin);
+		HAL_GPIO_TogglePin(BAR7_GPIO_Port, BAR7_Pin);
+
+		HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+		HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+		HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
+		HAL_GPIO_TogglePin(LD5_GPIO_Port, LD5_Pin);
+		HAL_GPIO_TogglePin(LD6_GPIO_Port, LD6_Pin);
+		printf("count: %d \n\r",cnt);
+		HAL_Delay(100);
+	}
+
+}
+/* USER CODE END 0 */
+
+/**
+ * @brief  The application entry point.
+ * @retval int
+ */
+int main(void)
+{
+
+	/* USER CODE BEGIN 1 */
+
+	/* USER CODE END 1 */
+
+	/* MCU Configuration--------------------------------------------------------*/
+
+	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+	HAL_Init();
+
+	/* USER CODE BEGIN Init */
+
+	/* USER CODE END Init */
+
+	/* Configure the system clock */
+	SystemClock_Config();
+
+	/* USER CODE BEGIN SysInit */
+
+	/* USER CODE END SysInit */
+
+	/* Initialize all configured peripherals */
+	MX_GPIO_Init();
+	MX_I2C1_Init();
+	MX_I2S3_Init();
+	MX_SPI1_Init();
+	MX_USB_DEVICE_Init();
+	/* USER CODE BEGIN 2 */
+	uint32_t t0 = HAL_GetTick();
+	while (!usb_is_configured() && (HAL_GetTick() - t0) < 2000) {
+		HAL_Delay(10);
+	}
+	HAL_Delay(700); //fix auto connect serial app
+	checkBoard();
+	/* USER CODE END 2 */
+
+	/* Infinite loop */
+	/* USER CODE BEGIN WHILE */
+	while (1)
+	{
+		/* USER CODE END WHILE */
+
+		/* USER CODE BEGIN 3 */
+		if(sensorDetected()){
+			counterUpdate();
+			counterShow();
+			printf("nilai counter: %d \n\r",count);
+		}
+
+		if(resetDetected()){
+			counterZero();
+			counterShow();
+			printf("nilai counter: %d \n\r",count);
+		}
+
+
+	}
+	/* USER CODE END 3 */
+}
+
+
+
+
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+/**
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
+void Error_Handler(void)
+{
+	/* USER CODE BEGIN Error_Handler_Debug */
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1)
+	{
+	}
+	/* USER CODE END Error_Handler_Debug */
+}
+#ifdef USE_FULL_ASSERT
+/**
+ * @brief  Reports the name of the source file and the source line number
+ *         where the assert_param error has occurred.
+ * @param  file: pointer to the source file name
+ * @param  line: assert_param error line source number
+ * @retval None
+ */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+	/* USER CODE BEGIN 6 */
+	/* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+	/* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */

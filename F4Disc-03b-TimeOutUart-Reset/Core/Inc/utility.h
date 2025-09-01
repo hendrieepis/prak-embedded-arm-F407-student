@@ -1,0 +1,16 @@
+/*
+ * utility.h
+ *
+ *  Created on: Aug 31, 2025
+ *      Author: hendri
+ */
+
+#ifndef INC_UTILITY_H_
+#define INC_UTILITY_H_
+#include "main.h"
+#include "usb_device.h"
+#include <stdio.h>
+//utility.c utility.h
+void checkBoard(void);
+
+#endif /* INC_UTILITY_H_ */

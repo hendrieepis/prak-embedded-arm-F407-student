@@ -1,0 +1,10 @@
+22:01:02 **** Incremental Build of configuration Debug for project F4Disc-02a-TemplatePemrogramanBerstruktur ****
+make -j24 all 
+arm-none-eabi-size  F4Disc-02a-TemplatePemrogramanBerstruktur.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38512	    352	   9296	  48160	   bc20	F4Disc-02a-TemplatePemrogramanBerstruktur.elf
+Finished building: default.size.stdout
+ 
+
+22:01:03 Build Finished. 0 errors, 0 warnings. (took 266ms)
+

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;F4Disc-p04e-SEOSObjectDetected-reset/F4Disc-p04d-SEOSObjectDetected.ioc&apos; to &apos;F4Disc-p04e-SEOSObjectDetected-reset.ioc&apos;" description="Rename resource &apos;F4Disc-p04d-SEOSObjectDetected.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="F4Disc-p04d-SEOSObjectDetected.ioc" name="F4Disc-p04e-SEOSObjectDetected-reset.ioc" stamp="1756694989199" updateReferences="true"/>
+</session>
