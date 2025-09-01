@@ -1,3 +1,0 @@
-../Core/Src/sensor.c:13:9:sensorDetected	16	static
-../Core/Src/sensor.c:30:9:sensorDetectedTimeout	24	static
-../Core/Src/sensor.c:60:9:resetDetected	16	static

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;F4Disc-01c-ObjectCountingFunction-reset/F4Disc-01b-ObjecCountingFunction.ioc&apos; to &apos;F4Disc-01c-ObjectCountingFunction-reset.ioc&apos;" description="Rename resource &apos;F4Disc-01b-ObjecCountingFunction.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="F4Disc-01b-ObjecCountingFunction.ioc" name="F4Disc-01c-ObjectCountingFunction-reset.ioc" stamp="1756647510107" updateReferences="true"/>
-</session>

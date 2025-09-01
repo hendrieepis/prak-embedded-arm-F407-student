@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;F4Disc-02b-PemrogramanBerstruktur-reset/F4Disc-02a-PemrogramanBerstruktur.ioc&apos; to &apos;F4Disc-02b-PemrogramanBerstruktur-reset.ioc&apos;" description="Rename resource &apos;F4Disc-02a-PemrogramanBerstruktur.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="F4Disc-02a-PemrogramanBerstruktur.ioc" name="F4Disc-02b-PemrogramanBerstruktur-reset.ioc" stamp="1756652620196" updateReferences="true"/>
-</session>

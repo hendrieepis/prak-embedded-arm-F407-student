@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;F4Disc-03a-TimeOutUart/F4Disc-02b-PemrogramanBerstruktur-reset.ioc&apos; to &apos;F4Disc-03a-TimeOutUart.ioc&apos;" description="Rename resource &apos;F4Disc-02b-PemrogramanBerstruktur-reset.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="F4Disc-02b-PemrogramanBerstruktur-reset.ioc" name="F4Disc-03a-TimeOutUart.ioc" stamp="1756653188892" updateReferences="true"/>
-</session>

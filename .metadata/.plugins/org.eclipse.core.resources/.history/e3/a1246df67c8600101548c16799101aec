@@ -1,8 +1,0 @@
-../Core/Src/hardwareinit.c:17:5:_write	1
-../Core/Src/hardwareinit.c:22:9:usb_is_configured	1
-../Core/Src/hardwareinit.c:27:6:SystemClock_Config	3
-../Core/Src/hardwareinit.c:73:6:MX_I2C1_Init	2
-../Core/Src/hardwareinit.c:107:6:MX_I2S3_Init	2
-../Core/Src/hardwareinit.c:141:6:MX_SPI1_Init	2
-../Core/Src/hardwareinit.c:179:6:MX_GPIO_Init	1
-../Core/Src/hardwareinit.c:310:6:Error_Handler	1
