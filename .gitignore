@@ -1,0 +1,22 @@
+# === Build output (regenerable) ===
+Debug/
+Release/
+
+# === Workspace & metadata (tidak perlu disimpan) ===
+.metadata/
+.org.eclipse.egit.core.cmp/
+
+# === Log files (tidak penting untuk version control) ===
+*.log
+*.ide.log*
+*.build.log
+
+# === Editor backup / temp files ===
+*~
+*.un~
+*.swp
+
+# === OS generated files ===
+.DS_Store
+Thumbs.db
+

@@ -64,8 +64,8 @@ all: main-build
 main-build: F4Disc-02a-PemrogramanBerstruktur.elf secondary-outputs
 
 # Tool invocations
-F4Disc-02a-PemrogramanBerstruktur.elf F4Disc-02a-PemrogramanBerstruktur.map: $(OBJS) $(USER_OBJS) C:\Users\hendri\Documents\workspace-embedded\F4Disc-02a-PemrogramanBerstruktur\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "F4Disc-02a-PemrogramanBerstruktur.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\hendri\Documents\workspace-embedded\F4Disc-02a-PemrogramanBerstruktur\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F4Disc-02a-PemrogramanBerstruktur.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F4Disc-02a-PemrogramanBerstruktur.elf F4Disc-02a-PemrogramanBerstruktur.map: $(OBJS) $(USER_OBJS) C:\Users\hendri\Documents\workspace-Prak_embedded-ARM_F407-Student\F4Disc-02a-PemrogramanBerstruktur\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "F4Disc-02a-PemrogramanBerstruktur.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\hendri\Documents\workspace-Prak_embedded-ARM_F407-Student\F4Disc-02a-PemrogramanBerstruktur\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F4Disc-02a-PemrogramanBerstruktur.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
